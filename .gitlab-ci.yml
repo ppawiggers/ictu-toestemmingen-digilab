@@ -1,0 +1,9 @@
+kustomize-build:
+  image: registry.gitlab.com/digilab.overheid.nl/platform/images/ci-worker-ops:20231116
+  script:
+    - |
+      for d in $(find . -name "overlays" -type d); do
+        for overlay in "$d"/*; do
+          kubectl kustomize "$overlay" > /dev/null
+        done
+      done
